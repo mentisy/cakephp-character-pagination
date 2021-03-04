@@ -94,7 +94,7 @@ class CharacterComponent extends Component
      */
     protected function createCell($object): void
     {
-        $characterCell = $this->cell('Avolle/CharacterPagination.character', [$object]);
+        $characterCell = $this->cell('Avolle/CharacterPagination.Character', [$object]);
         $this->getController()->viewBuilder()->setVar('characterCell', $characterCell);
     }
 
