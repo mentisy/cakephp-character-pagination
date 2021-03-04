@@ -1,0 +1,92 @@
+name: GitHub CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  testsuite:
+    runs-on: ubuntu-18.04
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: ['7.2', '7.4']
+        db-type: [mysql]
+    name: PHP ${{ matrix.php-version }}
+
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - name: Setup service
+        if: matrix.db-type == 'mysql'
+        run: |
+          sudo service mysql start
+          mysql -h 127.0.0.1 -u root -proot -e 'CREATE DATABASE character_pagination_tests;'
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: pdo_${{ matrix.db-type }}
+          coverage: none
+
+      - name: composer install
+        run: |
+          if [[ ${{ matrix.php-version }} == '8.0' ]]; then
+            composer install --ignore-platform-reqs
+          else
+            composer install
+          fi
+
+      - name: Run PHPUnit
+        run: |
+          vendor/bin/phpunit
+
+  coding-standard:
+    name: Coding Standard
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.2'
+          extensions: mbstring, intl
+          coverage: none
+
+      - name: composer install
+        run: composer install
+
+      - name: Run PHP CodeSniffer
+        run: composer cs-check
+
+  static-analysis:
+    name: Static Analysis
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.2'
+          coverage: none
+
+      - name: composer install
+        run: composer install
+
+      - name: Run phpstan
+        run: vendor/bin/phpstan.phar analyse
