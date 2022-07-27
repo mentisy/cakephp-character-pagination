@@ -39,5 +39,10 @@
         "cs-fix": "phpcbf ./src ./tests",
         "stan": "phpstan analyze",
         "test": "phpunit --colors=always"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }
