@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 use Cake\Core\Configure;
 use Cake\Datasource\ConnectionManager;
+use Cake\TestSuite\Fixture\SchemaLoader;
 
 $findRoot = function ($root) {
     do {
@@ -68,3 +69,5 @@ Configure::write('App', [
         'templates' => [dirname(APP) . DS . 'templates' . DS],
     ],
 ]);
+
+(new SchemaLoader())->loadSqlFiles($root . '/tests/schema.sql');
