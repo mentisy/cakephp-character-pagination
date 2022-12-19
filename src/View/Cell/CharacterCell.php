@@ -20,7 +20,7 @@ class CharacterCell extends Cell
      * List of valid options that can be passed into this
      * cell's constructor.
      *
-     * @var array
+     * @var string[]
      */
     protected $_validCellOptions = [];
 

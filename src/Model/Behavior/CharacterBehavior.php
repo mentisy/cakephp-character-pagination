@@ -19,7 +19,7 @@ class CharacterBehavior extends Behavior
      *  - field: Which field to run characters pagination for (if null, will attempt to use table's displayField)
      *  - cacheKey: Defines the cache key to use for caching characters query results. If null, cache will not be used.
      *
-     * @var array
+     * @var array<string, mixed>
      */
     protected $_defaultConfig = [
         'field' => null,

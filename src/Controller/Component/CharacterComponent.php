@@ -21,7 +21,7 @@ class CharacterComponent extends Component
     /**
      * Default configuration.
      *
-     * @var array
+     * @var array<string, mixed>
      */
     protected $_defaultConfig = [];
 

@@ -15,7 +15,7 @@ class CharacterHelper extends Helper
     /**
      * Default configuration.
      *
-     * @var array
+     * @var array<string, mixed>
      */
     protected $_defaultConfig = [
         'activeClassName' => 'active',
