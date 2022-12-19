@@ -1,7 +1,6 @@
 <?php
 namespace Avolle\CharacterPagination\Test\Fixture;
 
-use Cake\I18n\FrozenDate;
 use Cake\TestSuite\Fixture\TestFixture;
 
 /**
@@ -42,25 +41,21 @@ class MoviesFixture extends TestFixture
                 'id' => 1,
                 'title' => 'Shawshank Redemption',
                 'link' => 'https://imdb.com/shawshank-redemption',
-                'release_date' => new FrozenDate('1995-01-06'),
             ],
             [
                 'id' => 2,
                 'title' => 'The Green Mile',
                 'link' => 'https://imdb.com/the-green-mile',
-                'release_date' => new FrozenDate('2000-02-11'),
             ],
             [
                 'id' => 3,
                 'title' => 'Gone in Sixty Seconds',
                 'link' => 'https://imdb.com/gone-in-sixty-seconds',
-                'release_date' => new FrozenDate('2000-06-09'),
             ],
             [
                 'id' => 4,
                 'title' => 'American History X',
                 'link' => 'https://imdb.com/american-history-x',
-                'release_date' => new FrozenDate('1999-02-12'),
             ],
         ];
         parent::init();

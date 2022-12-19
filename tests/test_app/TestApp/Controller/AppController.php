@@ -23,17 +23,4 @@ use Cake\Controller\Controller;
  */
 class AppController extends Controller
 {
-    /**
-     * Initialization hook method.
-     *
-     * @return void
-     * @throws \Exception
-     */
-    public function initialize(): void
-    {
-        parent::initialize();
-
-        $this->loadComponent('RequestHandler', ['enableBeforeRedirect' => false]);
-        $this->loadComponent('Flash');
-    }
 }

@@ -52,11 +52,6 @@ class MoviesTable extends Table
             ->scalar('title')
             ->notEmptyString('title');
 
-        $validator
-            ->requirePresence('release_date', 'create')
-            ->notEmptyDate('release_date')
-            ->date('release_date');
-
         return $validator;
     }
 }

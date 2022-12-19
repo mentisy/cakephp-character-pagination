@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace TestApp\Model\Entity;
 
-use Cake\Auth\DefaultPasswordHasher;
 use Cake\ORM\Entity;
 
 /**
@@ -31,30 +30,5 @@ class User extends Entity
         'id' => false,
         'name' => true,
         'email' => true,
-        'number' => true,
-        'password' => true,
-        'role' => true,
     ];
-
-    /**
-     * Fields that are excluded from JSON versions of the entity.
-     *
-     * @var array
-     */
-    protected $_hidden = [
-        'password',
-    ];
-
-    /**
-     * Hash the user's password when entered
-     *
-     * @param string $value Password to be hashed
-     * @return false|string
-     */
-    protected function _setPassword($value)
-    {
-        $hasher = new DefaultPasswordHasher();
-
-        return $hasher->hash($value);
-    }
 }

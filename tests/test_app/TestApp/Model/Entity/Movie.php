@@ -11,7 +11,6 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $title
  * @property string $link
- * @property \Cake\I18n\FrozenDate $release_date
  */
 class Movie extends Entity
 {
@@ -28,6 +27,5 @@ class Movie extends Entity
         'id' => false,
         'title' => true,
         'link' => true,
-        'release_date' => true,
     ];
 }
