@@ -50,7 +50,7 @@ ConnectionManager::setConfig('test', [
     'host' => 'localhost',
     'database' => 'character_pagination_tests',
     'username' => 'root',
-    'password' => '',
+    'password' => 'root',
 ]);
 
 Configure::write('App', [

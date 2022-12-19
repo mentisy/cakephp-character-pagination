@@ -27,7 +27,7 @@ jobs:
         if: matrix.db-type == 'mysql'
         run: |
           sudo service mysql start
-          mysql -h 127.0.0.1 -u root -e 'CREATE DATABASE character_pagination_tests;'
+          mysql -h 127.0.0.1 -u root -proot -e 'CREATE DATABASE character_pagination_tests;'
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
