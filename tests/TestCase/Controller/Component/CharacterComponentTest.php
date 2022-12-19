@@ -67,12 +67,13 @@ class CharacterComponentTest extends TestCase
      */
     public function testPaginateQueryObject(): void
     {
+        /** @var \Cake\Datasource\Paging\PaginatedResultSet $users */
         $users = $this->Character->paginate((new UsersTable())->find());
         $expected = [
             'A User Name',
             'A User Name 3',
         ];
-        $this->assertSame($expected, $users->extract('name')->toArray());
+        $this->assertSame($expected, $users->items()->extract('name')->toArray());
     }
 
     /**
@@ -85,12 +86,13 @@ class CharacterComponentTest extends TestCase
      */
     public function testPaginateTableObject(): void
     {
+        /** @var \Cake\Datasource\Paging\PaginatedResultSet $users */
         $users = $this->Character->paginate(new UsersTable());
         $expected = [
             'A User Name',
             'A User Name 3',
         ];
-        $this->assertSame($expected, $users->extract('name')->toArray());
+        $this->assertSame($expected, $users->items()->extract('name')->toArray());
     }
 
     /**
