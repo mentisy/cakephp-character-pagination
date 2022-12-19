@@ -17,7 +17,7 @@ trait RepositoryTrait
     /**
      * @var \Cake\ORM\Table
      */
-    protected $repository;
+    protected Table $repository;
 
     /**
      * Setup `query` and `repositories` properties in class based on which argument is passed to method

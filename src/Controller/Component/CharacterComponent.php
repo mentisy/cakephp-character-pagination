@@ -7,6 +7,10 @@ use Avolle\CharacterPagination\Traits\RepositoryTrait;
 use Cake\Controller\Component;
 use Cake\Datasource\ResultSetInterface;
 use Cake\Event\EventDispatcherTrait;
+use Cake\Http\Response;
+use Cake\Http\ServerRequest;
+use Cake\ORM\Query\SelectQuery;
+use Cake\ORM\Table;
 use Cake\View\CellTrait;
 
 /**
@@ -23,14 +27,14 @@ class CharacterComponent extends Component
      *
      * @var array<string, mixed>
      */
-    protected $_defaultConfig = [];
+    protected array $_defaultConfig = [];
 
     /**
      * Components to use in this Component
      *
-     * @var string[]
+     * @var array
      */
-    protected $components = [
+    protected array $components = [
         'Paginator',
     ];
 
@@ -39,14 +43,14 @@ class CharacterComponent extends Component
      *
      * @var \Cake\Http\ServerRequest
      */
-    protected $request;
+    protected ServerRequest $request;
 
     /**
      * Response
      *
      * @var \Cake\Http\Response
      */
-    protected $response;
+    protected Response $response;
 
     /**
      * Paginate the results after filtering the records that start with the requested character.

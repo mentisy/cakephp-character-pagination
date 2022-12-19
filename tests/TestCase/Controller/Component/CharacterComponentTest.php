@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Avolle\CharacterPagination\Test\TestCase\Controller\Component;
 
 use Avolle\CharacterPagination\Controller\Component\CharacterComponent;
+use Avolle\CharacterPagination\View\Cell\CharacterCell;
 use Cake\Controller\ComponentRegistry;
 use Cake\Http\ServerRequest;
 use Cake\TestSuite\TestCase;
@@ -16,7 +17,7 @@ use TestApp\Model\Table\UsersTable;
  */
 class CharacterComponentTest extends TestCase
 {
-    protected $fixtures = [
+    protected array $fixtures = [
         'plugin.Avolle/CharacterPagination.Movies',
         'plugin.Avolle/CharacterPagination.Users',
     ];
@@ -26,7 +27,7 @@ class CharacterComponentTest extends TestCase
      *
      * @var \Avolle\CharacterPagination\Controller\Component\CharacterComponent
      */
-    protected $Character;
+    protected CharacterComponent $Character;
 
     /**
      * setUp method
@@ -120,6 +121,6 @@ class CharacterComponentTest extends TestCase
     {
         $this->Character->paginate(new MoviesTable());
         $cell = $this->Character->getController()->viewBuilder()->getVar('characterCell');
-        $this->assertInstanceOf('Avolle\\CharacterPagination\\View\\Cell\\CharacterCell', $cell);
+        $this->assertInstanceOf(CharacterCell::class, $cell);
     }
 }

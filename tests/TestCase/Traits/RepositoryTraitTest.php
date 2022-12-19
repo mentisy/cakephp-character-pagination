@@ -19,7 +19,7 @@ class RepositoryTraitTest extends \Cake\TestSuite\TestCase
      *
      * @var string[]
      */
-    protected $fixtures = [
+    protected array $fixtures = [
         'plugin.Avolle/CharacterPagination.Users',
     ];
 

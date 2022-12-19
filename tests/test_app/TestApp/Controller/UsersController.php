@@ -16,7 +16,7 @@ class UsersController extends AppController
      *
      * @return void
      */
-    public function import()
+    public function import(): void
     {
     }
 }

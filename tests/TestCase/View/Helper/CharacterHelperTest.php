@@ -19,7 +19,7 @@ class CharacterHelperTest extends TestCase
      *
      * @var \Avolle\CharacterPagination\View\Helper\CharacterHelper
      */
-    protected $Character;
+    protected CharacterHelper $Character;
 
     /**
      * setUp method
