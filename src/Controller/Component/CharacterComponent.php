@@ -5,7 +5,7 @@ namespace Avolle\CharacterPagination\Controller\Component;
 
 use Avolle\CharacterPagination\Traits\RepositoryTrait;
 use Cake\Controller\Component;
-use Cake\Datasource\ResultSetInterface;
+use Cake\Datasource\Paging\PaginatedInterface;
 use Cake\Event\EventDispatcherTrait;
 use Cake\Http\Response;
 use Cake\Http\ServerRequest;
@@ -55,12 +55,11 @@ class CharacterComponent extends Component
     /**
      * Paginate the results after filtering the records that start with the requested character.
      *
-     * @param \Cake\ORM\Table|\Cake\ORM\Query $object Object to filter and paginate
+     * @param \Cake\ORM\Table|\Cake\ORM\Query\SelectQuery $object Object to filter and paginate
      * @param array $settings Pagination settings
-     * @return \Cake\Datasource\ResultSetInterface
-     * @throws \Exception
+     * @return \Cake\Datasource\Paging\PaginatedInterface
      */
-    public function paginate($object, $settings = []): ResultSetInterface
+    public function paginate(Table|SelectQuery $object, array $settings = []): PaginatedInterface
     {
         $this->determineRepository($object);
         if (!$this->repository->hasBehavior('Character')) {
@@ -92,11 +91,11 @@ class CharacterComponent extends Component
     /**
      * Create a Character cell
      *
-     * @param \Cake\ORM\Table|\Cake\ORM\Query $object Table or Query instance passed to cell
+     * @param \Cake\ORM\Table|\Cake\ORM\Query\SelectQuery $object Table or Query instance passed to cell
      * @return void
      * @uses \Avolle\CharacterPagination\View\Cell\CharacterCell
      */
-    protected function createCell($object): void
+    protected function createCell(Table|SelectQuery $object): void
     {
         $characterCell = $this->cell('Avolle/CharacterPagination.Character', [$object]);
         $this->getController()->viewBuilder()->setVar('characterCell', $characterCell);

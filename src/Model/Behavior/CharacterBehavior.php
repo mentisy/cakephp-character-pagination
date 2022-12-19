@@ -5,7 +5,7 @@ namespace Avolle\CharacterPagination\Model\Behavior;
 
 use Cake\Database\Expression\IdentifierExpression;
 use Cake\ORM\Behavior;
-use Cake\ORM\Query;
+use Cake\ORM\Query\SelectQuery;
 
 /**
  * Class CharacterBehavior
@@ -29,27 +29,27 @@ class CharacterBehavior extends Behavior
     /**
      * Find all used first characters with the configured field in table
      *
-     * @param \Cake\ORM\Query $query Query
-     * @return \Cake\ORM\Query
+     * @param \Cake\ORM\Query\SelectQuery $query Query
+     * @return \Cake\ORM\Query\SelectQuery
      */
-    public function findCharacters(Query $query): Query
+    public function findCharacters(SelectQuery $query): SelectQuery
     {
         $nameIdentifier = new IdentifierExpression($this->determineField());
         $firstChar = $query->func()
             ->aggregate('LEFT', [$nameIdentifier, 1], [], 'string');
 
-        return $query->select(compact('firstChar'))->group('firstChar')->orderAsc('firstChar');
+        return $query->select(compact('firstChar'))->groupBy('firstChar')->orderByAsc('firstChar');
     }
 
     /**
      * Get all records matching the selected `characters` option
      * Filtering is used by leveraging the REGEXP sql function, filtering records starting by either characters provided
      *
-     * @param \Cake\ORM\Query $query Query
+     * @param \Cake\ORM\Query\SelectQuery $query Query
      * @param array $options Options
-     * @return \Cake\ORM\Query
+     * @return \Cake\ORM\Query\SelectQuery
      */
-    public function findRecordsWithCharacters(Query $query, array $options): Query
+    public function findRecordsWithCharacters(SelectQuery $query, array $options): SelectQuery
     {
         if (!isset($options['characters']) || !is_array($options['characters'])) {
             $options['characters'] = ['A'];
@@ -57,7 +57,7 @@ class CharacterBehavior extends Behavior
         $charactersString = implode('|', $options['characters']);
         $cond = sprintf("%s REGEXP '^(%s)'", $this->determineField(), $charactersString);
 
-        return $query->where($cond)->orderAsc($this->determineField());
+        return $query->where($cond)->orderByAsc($this->determineField());
     }
 
     /**

@@ -10,6 +10,3 @@ parameters:
         -
             message: '#Access to an undefined property Cake\\View\\View::\$Character.#'
             path: src/View/Cell/CharacterCell.php
-        -
-            message: '#Else branch is unreachable because previous condition is always true.#'
-            path: src/Traits/RepositoryTrait.php
