@@ -10,6 +10,8 @@ declare(strict_types=1);
  */
 
 use Cake\Core\Configure;
+use Cake\Database\Connection;
+use Cake\Database\Driver\Mysql;
 use Cake\Datasource\ConnectionManager;
 use Cake\TestSuite\Fixture\SchemaLoader;
 
@@ -46,8 +48,8 @@ if (file_exists($root . '/config/bootstrap.php')) {
 
 ConnectionManager::drop('test');
 ConnectionManager::setConfig('test', [
-    'className' => \Cake\Database\Connection::class,
-    'driver' => \Cake\Database\Driver\Mysql::class,
+    'className' => Connection::class,
+    'driver' => Mysql::class,
     'host' => 'localhost',
     'database' => 'character_pagination_tests',
     'username' => 'root',
