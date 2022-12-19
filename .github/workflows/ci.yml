@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-version: ['7.4']
+        php-version: ['8.1']
         db-type: [mysql]
     name: PHP ${{ matrix.php-version }}
 
@@ -38,11 +38,7 @@ jobs:
 
       - name: composer install
         run: |
-          if [[ ${{ matrix.php-version }} == '8.0' ]]; then
-            composer install --ignore-platform-reqs
-          else
-            composer install
-          fi
+          composer install
 
       - name: Run PHPUnit
         run: |
@@ -60,7 +56,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: '8.1'
           extensions: mbstring, intl
           coverage: none
 
@@ -82,11 +78,11 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: '8.1'
           coverage: none
 
       - name: composer install
-        run: composer install
+        run: composer require --dev phpstan/phpstan:^1.9
 
       - name: Run phpstan
         run: vendor/bin/phpstan.phar analyse
