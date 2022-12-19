@@ -28,7 +28,7 @@ class CharacterBehaviorTest extends TestCase
         $usersTable = new UsersTable();
         $actual = $usersTable->find('characters');
 
-        $this->assertSame(['A', 'B', 'K'], $actual->extract('firstChar')->toArray());
+        $this->assertSame(['A', 'B', 'K'], $actual->all()->extract('firstChar')->toArray());
     }
 
     /**
@@ -47,7 +47,7 @@ class CharacterBehaviorTest extends TestCase
             'A User Name',
             'A User Name 3',
         ];
-        $this->assertSame($expected, $actual->extract('name')->toArray());
+        $this->assertSame($expected, $actual->all()->extract('name')->toArray());
     }
 
     /**
@@ -66,7 +66,7 @@ class CharacterBehaviorTest extends TestCase
             'A User Name',
             'A User Name 3',
         ];
-        $this->assertSame($expected, $actual->extract('name')->toArray());
+        $this->assertSame($expected, $actual->all()->extract('name')->toArray());
     }
 
     /**
@@ -85,7 +85,7 @@ class CharacterBehaviorTest extends TestCase
             'A User Name',
             'A User Name 3',
         ];
-        $this->assertSame($expected, $actual->extract('name')->toArray());
+        $this->assertSame($expected, $actual->all()->extract('name')->toArray());
     }
 
     /**
@@ -104,7 +104,7 @@ class CharacterBehaviorTest extends TestCase
             'A User Name 3',
             'B User Name 2',
         ];
-        $this->assertSame($expected, $actual->extract('name')->toArray());
+        $this->assertSame($expected, $actual->all()->extract('name')->toArray());
 
         $actual = $usersTable->find('recordsWithCharacters', ['characters' => ['B', 'A']]);
         $expected = [
@@ -112,28 +112,28 @@ class CharacterBehaviorTest extends TestCase
             'A User Name 3',
             'B User Name 2',
         ];
-        $this->assertSame($expected, $actual->extract('name')->toArray());
+        $this->assertSame($expected, $actual->all()->extract('name')->toArray());
 
         $actual = $usersTable->find('recordsWithCharacters', ['characters' => ['B', 'B']]);
         $expected = [
             'B User Name 2',
         ];
-        $this->assertSame($expected, $actual->extract('name')->toArray());
+        $this->assertSame($expected, $actual->all()->extract('name')->toArray());
 
         $actual = $usersTable->find('recordsWithCharacters', ['characters' => ['B', 'C']]);
         $expected = [
             'B User Name 2',
         ];
-        $this->assertSame($expected, $actual->extract('name')->toArray());
+        $this->assertSame($expected, $actual->all()->extract('name')->toArray());
 
         $actual = $usersTable->find('recordsWithCharacters', ['characters' => ['J', 'K']]);
         $expected = [
             'K User Name 4',
         ];
-        $this->assertSame($expected, $actual->extract('name')->toArray());
+        $this->assertSame($expected, $actual->all()->extract('name')->toArray());
 
         $actual = $usersTable->find('recordsWithCharacters', ['characters' => ['C', 'D']]);
-        $this->assertEmpty($actual->extract('name')->toArray());
+        $this->assertEmpty($actual->all()->extract('name')->toArray());
     }
 
     /**
@@ -152,6 +152,6 @@ class CharacterBehaviorTest extends TestCase
             'A User Name 3',
             'B User Name 2',
         ];
-        $this->assertSame($expected, $actual->extract('name')->toArray());
+        $this->assertSame($expected, $actual->all()->extract('name')->toArray());
     }
 }
