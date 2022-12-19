@@ -66,8 +66,7 @@ class CharacterCellTest extends TestCase
             'args' => [new UsersTable()],
         ]);
 
-        Router::reload();
-        Router::connect('/{controller}/{action}/*');
+        Router::createRouteBuilder('/')->connect('/{controller}/{action}/*');
         Router::setRequest($this->request);
     }
 
