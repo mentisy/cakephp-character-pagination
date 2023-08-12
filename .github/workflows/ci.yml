@@ -28,6 +28,7 @@ jobs:
         run: |
           sudo service mysql start
           mysql -h 127.0.0.1 -u root -proot -e 'CREATE DATABASE character_pagination_tests;'
+          mysql -h 127.0.0.1 -u root -proot -e "SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));"
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
