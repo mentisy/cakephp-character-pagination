@@ -90,7 +90,7 @@ class CharacterBehaviorTest extends TestCase
 
     /**
      * Test findRecordsWithCharacters method
-     * `characters` option provided, and is only `A` - Get records with character `A`
+     * `characters` option provided, with various characters
      *
      * @return void
      * @uses \Avolle\CharacterPagination\Model\Behavior\CharacterBehavior::findRecordsWithCharacters()
@@ -131,6 +131,13 @@ class CharacterBehaviorTest extends TestCase
             'K User Name 4',
         ];
         $this->assertSame($expected, $actual->extract('name')->toArray());
+
+        // Foreign letter
+        $actual = $usersTable->find('recordsWithCharacters', ['characters' => ['Å']]);
+        $expected = [
+            'Å user name',
+        ];
+        $this->assertEquals($expected, $actual->extract('name')->toArray());
 
         $actual = $usersTable->find('recordsWithCharacters', ['characters' => ['C', 'D']]);
         $this->assertEmpty($actual->extract('name')->toArray());
