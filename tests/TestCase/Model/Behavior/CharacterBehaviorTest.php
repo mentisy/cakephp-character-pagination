@@ -28,7 +28,7 @@ class CharacterBehaviorTest extends TestCase
         $usersTable = new UsersTable();
         $actual = $usersTable->find('characters');
 
-        $this->assertSame(['A', 'B', 'K'], $actual->extract('firstChar')->toArray());
+        $this->assertSame(['A', 'B', 'K', 'Å'], $actual->extract('firstChar')->toArray());
     }
 
     /**

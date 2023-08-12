@@ -16,7 +16,7 @@ class UsersFixture extends TestFixture
     // @codingStandardsIgnoreStart
     public $fields = [
         'id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
-        'name' => ['type' => 'string', 'length' => 40, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'name' => ['type' => 'string', 'length' => 40, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
         'email' => ['type' => 'string', 'length' => 50, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'number' => ['type' => 'string', 'length' => 20, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'password' => ['type' => 'string', 'length' => 70, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
@@ -24,10 +24,6 @@ class UsersFixture extends TestFixture
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
             'email' => ['type' => 'unique', 'columns' => ['email'], 'length' => []],
-        ],
-        '_options' => [
-            'engine' => 'InnoDB',
-            'collation' => 'latin1_swedish_ci'
         ],
     ];
     // @codingStandardsIgnoreEnd
@@ -71,6 +67,14 @@ class UsersFixture extends TestFixture
                 'number' => '+4796666666',
                 'password' => '$2y$10$5fTuNphejvCQGth5jTIEFuWzYN646DWsSEXA6VfMitkeLVba4Dzwa', //Lorem ipsum dolor sit amet
                 'role' => 1,
+            ],
+            [
+                'id' => 5,
+                'name' => 'Å user name',
+                'email' => 'Ysome.other.other.other.user@users.com',
+                'number' => '+4797777777',
+                'password' => '$2y$10$5fTuNphejvCQGth5jTIEFuWzYN646DWsSEXA6VfMitkeLVba4Dzwa', //Lorem ipsum dolor sit amet
+                'role' => 0,
             ],
         ];
         parent::init();

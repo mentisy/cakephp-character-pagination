@@ -38,7 +38,7 @@ class CharacterBehavior extends Behavior
         $firstChar = $query->func()
             ->aggregate('LEFT', [$nameIdentifier, 1], [], 'string');
 
-        return $query->select(compact('firstChar'))->group('firstChar')->orderAsc('firstChar');
+        return $query->select(compact('firstChar'))->group('ASCII(firstChar)')->orderAsc('ASCII(firstChar)');
     }
 
     /**
