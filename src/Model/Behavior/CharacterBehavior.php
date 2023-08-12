@@ -86,7 +86,7 @@ class CharacterBehavior extends Behavior
     /**
      * Get the SQL ASCII value. E.g.: ASCII(name) or ASCII('Something')
      *
-     * @param \Cake\Database\Expression\FunctionExpression|string $value
+     * @param \Cake\Database\Expression\FunctionExpression|string $value Value to ASCII
      * @return \Cake\Database\Expression\FunctionExpression
      */
     protected function ascii($value): FunctionExpression
@@ -97,7 +97,7 @@ class CharacterBehavior extends Behavior
     /**
      * Get the SQL ASCII LEFT value. E.g.: ASCII(LEFT(name, 1))
      *
-     * @param \Cake\Database\Expression\IdentifierExpression $fieldIdentifier
+     * @param \Cake\Database\Expression\IdentifierExpression $fieldIdentifier Field Identifier to LEFT
      * @return \Cake\Database\Expression\FunctionExpression
      */
     protected function asciiLeft(IdentifierExpression $fieldIdentifier): FunctionExpression
