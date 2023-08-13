@@ -46,8 +46,8 @@ if (file_exists($root . '/config/bootstrap.php')) {
     return;
 }
 
-ConnectionManager::drop('test');
-ConnectionManager::setConfig('test', [
+ConnectionManager::drop('default');
+ConnectionManager::setConfig('default', [
     'className' => Connection::class,
     'driver' => Mysql::class,
     'host' => 'localhost',
@@ -55,6 +55,8 @@ ConnectionManager::setConfig('test', [
     'username' => 'root',
     'password' => 'root',
 ]);
+ConnectionManager::drop('test');
+ConnectionManager::setConfig('test', ConnectionManager::get('default'));
 
 Configure::write('App', [
     'namespace' => 'TestApp',

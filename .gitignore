@@ -1,5 +1,6 @@
 composer.lock
 /phpunit.xml
+/.phpunit.cache
 /.phpunit.result.cache
 /phpunit.phar
 /config/Migrations/schema-dump-default.lock
