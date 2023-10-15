@@ -70,7 +70,7 @@ class CharacterComponent extends Component
 
         $requestCharacters = $this->getRequestCharacters();
         if (!empty($requestCharacters)) {
-            $this->query = $this->query->find('recordsWithCharacters', ['characters' => $requestCharacters]);
+            $this->query = $this->query->find('recordsWithCharacters', characters: $requestCharacters);
         }
 
         return $this->getController()->paginate($this->query, $settings);

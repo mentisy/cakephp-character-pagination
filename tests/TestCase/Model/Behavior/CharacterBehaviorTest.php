@@ -79,7 +79,7 @@ class CharacterBehaviorTest extends TestCase
     public function testFindRecordsWithCharactersCharactersOptionsIsSingleCharacterA(): void
     {
         $usersTable = new UsersTable();
-        $actual = $usersTable->find('recordsWithCharacters', ['characters' => ['A']]);
+        $actual = $usersTable->find('recordsWithCharacters', characters: ['A']);
 
         $expected = [
             'A User Name',
@@ -98,7 +98,7 @@ class CharacterBehaviorTest extends TestCase
     public function testFindRecordsWithCharactersCharactersOptionsIsMultipleCharacters(): void
     {
         $usersTable = new UsersTable();
-        $actual = $usersTable->find('recordsWithCharacters', ['characters' => ['A', 'B']]);
+        $actual = $usersTable->find('recordsWithCharacters', characters: ['A', 'B']);
         $expected = [
             'A User Name',
             'A User Name 3',
@@ -106,7 +106,7 @@ class CharacterBehaviorTest extends TestCase
         ];
         $this->assertSame($expected, $actual->all()->extract('name')->toArray());
 
-        $actual = $usersTable->find('recordsWithCharacters', ['characters' => ['B', 'A']]);
+        $actual = $usersTable->find('recordsWithCharacters', characters: ['B', 'A']);
         $expected = [
             'A User Name',
             'A User Name 3',
@@ -114,25 +114,25 @@ class CharacterBehaviorTest extends TestCase
         ];
         $this->assertSame($expected, $actual->all()->extract('name')->toArray());
 
-        $actual = $usersTable->find('recordsWithCharacters', ['characters' => ['B', 'B']]);
+        $actual = $usersTable->find('recordsWithCharacters', characters: ['B', 'B']);
         $expected = [
             'B User Name 2',
         ];
         $this->assertSame($expected, $actual->all()->extract('name')->toArray());
 
-        $actual = $usersTable->find('recordsWithCharacters', ['characters' => ['B', 'C']]);
+        $actual = $usersTable->find('recordsWithCharacters', characters: ['B', 'C']);
         $expected = [
             'B User Name 2',
         ];
         $this->assertSame($expected, $actual->all()->extract('name')->toArray());
 
-        $actual = $usersTable->find('recordsWithCharacters', ['characters' => ['J', 'K']]);
+        $actual = $usersTable->find('recordsWithCharacters', characters: ['J', 'K']);
         $expected = [
             'K User Name 4',
         ];
         $this->assertSame($expected, $actual->all()->extract('name')->toArray());
 
-        $actual = $usersTable->find('recordsWithCharacters', ['characters' => ['C', 'D']]);
+        $actual = $usersTable->find('recordsWithCharacters', characters: ['C', 'D']);
         $this->assertEmpty($actual->all()->extract('name')->toArray());
     }
 
@@ -147,7 +147,7 @@ class CharacterBehaviorTest extends TestCase
     {
         $usersTable = new UsersTable();
         $usersTable->getBehavior('Character')->setConfig('field', 'email');
-        $actual = $usersTable->find('recordsWithCharacters', ['characters' => ['X']]);
+        $actual = $usersTable->find('recordsWithCharacters', characters: ['X']);
         $expected = [
             'A User Name 3',
             'B User Name 2',

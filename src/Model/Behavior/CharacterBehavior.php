@@ -42,19 +42,16 @@ class CharacterBehavior extends Behavior
     }
 
     /**
-     * Get all records matching the selected `characters` option
+     * Get all records matching the selected `characters` argument.
      * Filtering is used by leveraging the REGEXP sql function, filtering records starting by either characters provided
      *
      * @param \Cake\ORM\Query\SelectQuery $query Query
-     * @param array $options Options
+     * @param array<string> $characters Characters to find records starting with
      * @return \Cake\ORM\Query\SelectQuery
      */
-    public function findRecordsWithCharacters(SelectQuery $query, array $options): SelectQuery
+    public function findRecordsWithCharacters(SelectQuery $query, array $characters = ['A']): SelectQuery
     {
-        if (!isset($options['characters']) || !is_array($options['characters'])) {
-            $options['characters'] = ['A'];
-        }
-        $charactersString = implode('|', $options['characters']);
+        $charactersString = implode('|', $characters);
         $cond = sprintf("%s REGEXP '^(%s)'", $this->determineField(), $charactersString);
 
         return $query->where($cond)->orderByAsc($this->determineField());
