@@ -5,6 +5,7 @@ namespace Avolle\CharacterPagination\Test\TestCase\Controller\Component;
 
 use Avolle\CharacterPagination\Controller\Component\CharacterComponent;
 use Avolle\CharacterPagination\View\Cell\CharacterCell;
+use Cake\Collection\Collection;
 use Cake\Controller\ComponentRegistry;
 use Cake\Http\ServerRequest;
 use Cake\TestSuite\TestCase;
@@ -92,7 +93,7 @@ class CharacterComponentTest extends TestCase
             'A User Name',
             'A User Name 3',
         ];
-        $this->assertSame($expected, $users->items()->extract('name')->toArray());
+        $this->assertSame($expected, (new Collection($users->items()))->extract('name')->toArray());
     }
 
     /**

@@ -28,7 +28,7 @@ class CharacterBehaviorTest extends TestCase
         $usersTable = new UsersTable();
         $actual = $usersTable->find('characters');
 
-        $this->assertSame(['A', 'B', 'K', 'Å'], $actual->extract('firstChar')->toArray());
+        $this->assertSame(['A', 'B', 'K', 'Å'], $actual->all()->extract('firstChar')->toArray());
     }
 
     /**
@@ -118,10 +118,10 @@ class CharacterBehaviorTest extends TestCase
         $expected = [
             'Å user name',
         ];
-        $this->assertEquals($expected, $actual->extract('name')->toArray());
+        $this->assertEquals($expected, $actual->all()->extract('name')->toArray());
 
         $actual = $usersTable->find('recordsWithCharacters', characters: ['C', 'D']);
-        $this->assertEmpty($actual->extract('name')->toArray());
+        $this->assertEmpty($actual->all()->extract('name')->toArray());
     }
 
     /**
