@@ -1,4 +1,5 @@
 <?php
+
 namespace Avolle\CharacterPagination\Test\Fixture;
 
 use Cake\TestSuite\Fixture\TestFixture;

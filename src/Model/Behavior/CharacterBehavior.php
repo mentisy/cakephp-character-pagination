@@ -86,7 +86,7 @@ class CharacterBehavior extends Behavior
      * @param \Cake\Database\Expression\FunctionExpression|string $value Value to ASCII
      * @return \Cake\Database\Expression\FunctionExpression
      */
-    protected function ascii($value): FunctionExpression
+    protected function ascii(FunctionExpression|string $value): FunctionExpression
     {
         return new FunctionExpression('ASCII', [$value]);
     }
