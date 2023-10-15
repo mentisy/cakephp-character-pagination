@@ -8,6 +8,6 @@ use Cake\Core\BasePlugin;
 /**
  * Plugin for Letter Pagination
  */
-class Plugin extends BasePlugin
+class CharacterPaginationPlugin extends BasePlugin
 {
 }

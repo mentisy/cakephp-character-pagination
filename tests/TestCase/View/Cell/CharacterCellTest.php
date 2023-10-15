@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Avolle\CharacterPagination\Test\TestCase\View\Cell;
 
-use Avolle\CharacterPagination\Plugin as CharacterPaginationPlugin;
+use Avolle\CharacterPagination\CharacterPaginationPlugin;
 use Avolle\CharacterPagination\View\Cell\CharacterCell;
 use Cake\Core\Plugin;
 use Cake\Http\Response;
