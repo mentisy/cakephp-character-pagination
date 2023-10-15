@@ -114,13 +114,13 @@ class CharacterBehaviorTest extends TestCase
         $this->assertSame($expected, $actual->all()->extract('name')->toArray());
 
         // Foreign letter
-        $actual = $usersTable->find('recordsWithCharacters', ['characters' => ['Å']]);
+        $actual = $usersTable->find('recordsWithCharacters', characters: ['Å']);
         $expected = [
             'Å user name',
         ];
         $this->assertEquals($expected, $actual->extract('name')->toArray());
 
-        $actual = $usersTable->find('recordsWithCharacters', ['characters' => ['C', 'D']]);
+        $actual = $usersTable->find('recordsWithCharacters', characters: ['C', 'D']);
         $this->assertEmpty($actual->extract('name')->toArray());
     }
 
