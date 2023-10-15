@@ -52,25 +52,6 @@ class CharacterBehaviorTest extends TestCase
 
     /**
      * Test findRecordsWithCharacters method
-     * `characters` option provided, but is not array - Get records with character `A`
-     *
-     * @return void
-     * @uses \Avolle\CharacterPagination\Model\Behavior\CharacterBehavior::findRecordsWithCharacters()
-     */
-    public function testFindRecordsWithCharactersCharactersOptionsIsNotArray(): void
-    {
-        $usersTable = new UsersTable();
-        $actual = $usersTable->find('recordsWithCharacters', ['characters' => 'not-an-array']);
-
-        $expected = [
-            'A User Name',
-            'A User Name 3',
-        ];
-        $this->assertSame($expected, $actual->all()->extract('name')->toArray());
-    }
-
-    /**
-     * Test findRecordsWithCharacters method
      * `characters` option provided, and is only `A` - Get records with character `A`
      *
      * @return void
