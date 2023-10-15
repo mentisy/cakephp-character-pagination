@@ -28,7 +28,7 @@ class CharacterBehaviorTest extends TestCase
         $usersTable = new UsersTable();
         $actual = $usersTable->find('characters');
 
-        $this->assertSame(['A', 'B', 'K'], $actual->all()->extract('firstChar')->toArray());
+        $this->assertSame(['A', 'B', 'K', 'Å'], $actual->extract('firstChar')->toArray());
     }
 
     /**
@@ -71,7 +71,7 @@ class CharacterBehaviorTest extends TestCase
 
     /**
      * Test findRecordsWithCharacters method
-     * `characters` option provided, and is only `A` - Get records with character `A`
+     * `characters` option provided, with various characters
      *
      * @return void
      * @uses \Avolle\CharacterPagination\Model\Behavior\CharacterBehavior::findRecordsWithCharacters()
@@ -113,8 +113,15 @@ class CharacterBehaviorTest extends TestCase
         ];
         $this->assertSame($expected, $actual->all()->extract('name')->toArray());
 
-        $actual = $usersTable->find('recordsWithCharacters', characters: ['C', 'D']);
-        $this->assertEmpty($actual->all()->extract('name')->toArray());
+        // Foreign letter
+        $actual = $usersTable->find('recordsWithCharacters', ['characters' => ['Å']]);
+        $expected = [
+            'Å user name',
+        ];
+        $this->assertEquals($expected, $actual->extract('name')->toArray());
+
+        $actual = $usersTable->find('recordsWithCharacters', ['characters' => ['C', 'D']]);
+        $this->assertEmpty($actual->extract('name')->toArray());
     }
 
     /**

@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Avolle\CharacterPagination\Model\Behavior;
 
+use Cake\Database\Expression\ComparisonExpression;
+use Cake\Database\Expression\FunctionExpression;
 use Cake\Database\Expression\IdentifierExpression;
 use Cake\ORM\Behavior;
 use Cake\ORM\Query\SelectQuery;
@@ -38,7 +40,7 @@ class CharacterBehavior extends Behavior
         $firstChar = $query->func()
             ->aggregate('LEFT', [$nameIdentifier, 1], [], 'string');
 
-        return $query->select(compact('firstChar'))->groupBy('firstChar')->orderByAsc('firstChar');
+        return $query->select(compact('firstChar'))->group('ASCII(firstChar)')->orderAsc('ASCII(firstChar)');
     }
 
     /**
@@ -51,10 +53,16 @@ class CharacterBehavior extends Behavior
      */
     public function findRecordsWithCharacters(SelectQuery $query, array $characters = ['A']): SelectQuery
     {
-        $charactersString = implode('|', $characters);
-        $cond = sprintf("%s REGEXP '^(%s)'", $this->determineField(), $charactersString);
+        $fieldIdentifier = new IdentifierExpression($this->determineField());
+        $field = $this->asciiLeft($fieldIdentifier);
+        $or = [];
+        foreach ($characters as $character) {
+            $asciiCond = $this->ascii($character);
+            $or[] = new ComparisonExpression($field, $asciiCond);
+        }
+        $cond = $query->newExpr()->or($or);
 
-        return $query->where($cond)->orderByAsc($this->determineField());
+        return $query->where($cond)->orderByAsc($fieldIdentifier);
     }
 
     /**
@@ -70,5 +78,29 @@ class CharacterBehavior extends Behavior
         }
 
         return sprintf('%s.%s', $this->table()->getAlias(), $field);
+    }
+
+    /**
+     * Get the SQL ASCII value. E.g.: ASCII(name) or ASCII('Something')
+     *
+     * @param \Cake\Database\Expression\FunctionExpression|string $value Value to ASCII
+     * @return \Cake\Database\Expression\FunctionExpression
+     */
+    protected function ascii($value): FunctionExpression
+    {
+        return new FunctionExpression('ASCII', [$value]);
+    }
+
+    /**
+     * Get the SQL ASCII LEFT value. E.g.: ASCII(LEFT(name, 1))
+     *
+     * @param \Cake\Database\Expression\IdentifierExpression $fieldIdentifier Field Identifier to LEFT
+     * @return \Cake\Database\Expression\FunctionExpression
+     */
+    protected function asciiLeft(IdentifierExpression $fieldIdentifier): FunctionExpression
+    {
+        $leftFunc = new FunctionExpression('LEFT', [$fieldIdentifier, 1], [1 => 'integer']);
+
+        return $this->ascii($leftFunc);
     }
 }
