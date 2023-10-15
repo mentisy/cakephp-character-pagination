@@ -6,9 +6,11 @@ namespace Avolle\CharacterPagination\Test\TestCase\View\Cell;
 use Avolle\CharacterPagination\Plugin as CharacterPaginationPlugin;
 use Avolle\CharacterPagination\View\Cell\CharacterCell;
 use Cake\Core\Plugin;
+use Cake\Http\Response;
 use Cake\Http\ServerRequest;
 use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 use TestApp\Model\Table\MoviesTable;
 use TestApp\Model\Table\UsersTable;
 
@@ -22,7 +24,7 @@ class CharacterCellTest extends TestCase
      *
      * @var string[]
      */
-    protected $fixtures = [
+    protected array $fixtures = [
         'plugin.Avolle/CharacterPagination.Movies',
         'plugin.Avolle/CharacterPagination.Users',
     ];
@@ -32,21 +34,21 @@ class CharacterCellTest extends TestCase
      *
      * @var \Cake\Http\ServerRequest|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $request;
+    protected ServerRequest|MockObject $request;
 
     /**
      * Response mock
      *
      * @var \Cake\Http\Response|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $response;
+    protected Response|MockObject $response;
 
     /**
      * Test subject
      *
      * @var \Avolle\CharacterPagination\View\Cell\CharacterCell
      */
-    protected $Character;
+    protected CharacterCell $Character;
 
     /**
      * setUp method
@@ -64,8 +66,7 @@ class CharacterCellTest extends TestCase
             'args' => [new UsersTable()],
         ]);
 
-        Router::reload();
-        Router::connect('/{controller}/{action}/*');
+        Router::createRouteBuilder('/')->connect('/{controller}/{action}/*');
         Router::setRequest($this->request);
     }
 
@@ -111,7 +112,7 @@ class CharacterCellTest extends TestCase
     public function testDisplayRendered(): void
     {
         $this->Character->viewBuilder()->setTemplate('Avolle/CharacterPagination.display');
-        $res = (string)$this->Character->render();
+        $res = $this->Character->render();
         $expected = '<a href="/movies/index?characters=A">A</a> | <a href="/movies/index?characters=B">B</a>';
         $this->assertStringContainsString($expected, $res);
     }

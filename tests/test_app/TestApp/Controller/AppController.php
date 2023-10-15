@@ -14,6 +14,7 @@ declare(strict_types=1);
  * @since     0.2.9
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace TestApp\Controller;
 
 use Cake\Controller\Controller;
@@ -23,17 +24,4 @@ use Cake\Controller\Controller;
  */
 class AppController extends Controller
 {
-    /**
-     * Initialization hook method.
-     *
-     * @return void
-     * @throws \Exception
-     */
-    public function initialize(): void
-    {
-        parent::initialize();
-
-        $this->loadComponent('RequestHandler', ['enableBeforeRedirect' => false]);
-        $this->loadComponent('Flash');
-    }
 }

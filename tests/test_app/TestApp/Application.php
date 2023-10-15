@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace TestApp;
 
+use Avolle\CharacterPagination\Plugin as CharacterPaginationPlugin;
 use Cake\Http\BaseApplication;
 use Cake\Http\MiddlewareQueue;
 use Cake\Routing\Middleware\RoutingMiddleware;
@@ -15,7 +16,7 @@ class Application extends BaseApplication
     public function bootstrap(): void
     {
         parent::bootstrap();
-        $this->addPlugin(\Avolle\CharacterPagination\Plugin::class);
+        $this->addPlugin(CharacterPaginationPlugin::class);
     }
 
     /**

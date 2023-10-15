@@ -19,7 +19,7 @@ class CharacterHelperTest extends TestCase
      *
      * @var \Avolle\CharacterPagination\View\Helper\CharacterHelper
      */
-    protected $Character;
+    protected CharacterHelper $Character;
 
     /**
      * setUp method
@@ -33,8 +33,7 @@ class CharacterHelperTest extends TestCase
         $view = new View($request);
         $this->Character = new CharacterHelper($view);
 
-        Router::reload();
-        Router::connect('/{controller}/{action}/*');
+        Router::createRouteBuilder('/')->connect('/{controller}/{action}/*');
         Router::setRequest($request);
     }
 

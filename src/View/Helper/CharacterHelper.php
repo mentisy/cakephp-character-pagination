@@ -17,16 +17,16 @@ class CharacterHelper extends Helper
      *
      * @var array<string, mixed>
      */
-    protected $_defaultConfig = [
+    protected array $_defaultConfig = [
         'activeClassName' => 'active',
     ];
 
     /**
      * Helpers
      *
-     * @var string[]
+     * @var array
      */
-    protected $helpers = [
+    protected array $helpers = [
         'Html',
     ];
 

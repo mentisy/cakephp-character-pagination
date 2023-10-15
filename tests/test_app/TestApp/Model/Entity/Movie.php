@@ -11,7 +11,6 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $title
  * @property string $link
- * @property \Cake\I18n\FrozenDate $release_date
  */
 class Movie extends Entity
 {
@@ -22,12 +21,11 @@ class Movie extends Entity
      * be mass assigned. For security purposes, it is advised to set '*' to false
      * (or remove it), and explicitly make individual fields accessible as needed.
      *
-     * @var array
+     * @var array<string, bool>
      */
-    protected $_accessible = [
+    protected array $_accessible = [
         'id' => false,
         'title' => true,
         'link' => true,
-        'release_date' => true,
     ];
 }

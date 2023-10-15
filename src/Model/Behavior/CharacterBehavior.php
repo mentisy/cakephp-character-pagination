@@ -7,7 +7,7 @@ use Cake\Database\Expression\ComparisonExpression;
 use Cake\Database\Expression\FunctionExpression;
 use Cake\Database\Expression\IdentifierExpression;
 use Cake\ORM\Behavior;
-use Cake\ORM\Query;
+use Cake\ORM\Query\SelectQuery;
 
 /**
  * Class CharacterBehavior
@@ -23,7 +23,7 @@ class CharacterBehavior extends Behavior
      *
      * @var array<string, mixed>
      */
-    protected $_defaultConfig = [
+    protected array $_defaultConfig = [
         'field' => null,
         'cacheKey' => null,
     ];
@@ -31,10 +31,10 @@ class CharacterBehavior extends Behavior
     /**
      * Find all used first characters with the configured field in table
      *
-     * @param \Cake\ORM\Query $query Query
-     * @return \Cake\ORM\Query
+     * @param \Cake\ORM\Query\SelectQuery $query Query
+     * @return \Cake\ORM\Query\SelectQuery
      */
-    public function findCharacters(Query $query): Query
+    public function findCharacters(SelectQuery $query): SelectQuery
     {
         $nameIdentifier = new IdentifierExpression($this->determineField());
         $firstChar = $query->func()
@@ -44,28 +44,25 @@ class CharacterBehavior extends Behavior
     }
 
     /**
-     * Get all records matching the selected `characters` option
+     * Get all records matching the selected `characters` argument.
      * Filtering is used by leveraging the REGEXP sql function, filtering records starting by either characters provided
      *
-     * @param \Cake\ORM\Query $query Query
-     * @param array $options Options
-     * @return \Cake\ORM\Query
+     * @param \Cake\ORM\Query\SelectQuery $query Query
+     * @param array<string> $characters Characters to find records starting with
+     * @return \Cake\ORM\Query\SelectQuery
      */
-    public function findRecordsWithCharacters(Query $query, array $options): Query
+    public function findRecordsWithCharacters(SelectQuery $query, array $characters = ['A']): SelectQuery
     {
-        if (!isset($options['characters']) || !is_array($options['characters'])) {
-            $options['characters'] = ['A'];
-        }
         $fieldIdentifier = new IdentifierExpression($this->determineField());
         $field = $this->asciiLeft($fieldIdentifier);
         $or = [];
-        foreach ($options['characters'] as $character) {
+        foreach ($characters as $character) {
             $asciiCond = $this->ascii($character);
             $or[] = new ComparisonExpression($field, $asciiCond);
         }
         $cond = $query->newExpr()->or($or);
 
-        return $query->where($cond)->orderAsc($fieldIdentifier);
+        return $query->where($cond)->orderByAsc($fieldIdentifier);
     }
 
     /**
@@ -89,7 +86,7 @@ class CharacterBehavior extends Behavior
      * @param \Cake\Database\Expression\FunctionExpression|string $value Value to ASCII
      * @return \Cake\Database\Expression\FunctionExpression
      */
-    protected function ascii($value): FunctionExpression
+    protected function ascii(FunctionExpression|string $value): FunctionExpression
     {
         return new FunctionExpression('ASCII', [$value]);
     }

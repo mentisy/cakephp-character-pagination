@@ -62,21 +62,6 @@ class UsersTable extends Table
             ->notEmptyString('email')
             ->email('email');
 
-        $validator
-            ->requirePresence('number', 'create')
-            ->notEmptyString('number')
-            ->regex('number', '/^(\+[0-9]{1,3})?[\-0-9]{1,12}$/', __('Phone number must only contain numbers and the symbols + and -'));
-
-        $validator
-            ->requirePresence('password', 'create')
-            ->minLength('password', 4, __('Passwords must be at least 4 characters long.'))
-            ->notEmptyString('password');
-
-        $validator
-            ->requirePresence('role', 'create')
-            ->notEmptyString('role')
-            ->numeric('role', 'Invalid Role');
-
         return $validator;
     }
 

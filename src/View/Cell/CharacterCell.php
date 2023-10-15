@@ -4,7 +4,8 @@ declare(strict_types=1);
 namespace Avolle\CharacterPagination\View\Cell;
 
 use Avolle\CharacterPagination\Traits\RepositoryTrait;
-use Cake\Datasource\QueryInterface;
+use Cake\ORM\Query\SelectQuery;
+use Cake\ORM\Table;
 use Cake\View\Cell;
 
 /**
@@ -20,9 +21,9 @@ class CharacterCell extends Cell
      * List of valid options that can be passed into this
      * cell's constructor.
      *
-     * @var string[]
+     * @var array<string>
      */
-    protected $_validCellOptions = [];
+    protected array $_validCellOptions = [];
 
     /**
      * Initialization logic run at the end of object construction.
@@ -40,13 +41,12 @@ class CharacterCell extends Cell
     /**
      * Default display method.
      *
-     * @param \Cake\ORM\Table|\Cake\ORM\Query $object Model class to load character records from
+     * @param \Cake\ORM\Table|\Cake\ORM\Query\SelectQuery $object Model class to load character records from
      * @return void
-     * @throws \Exception
      */
-    public function display($object): void
+    public function display(Table|SelectQuery $object): void
     {
-        $characters = $this->getCharacters($object);
+        $characters = $this->getCharacters($object)->all();
         $links = [];
         foreach ($characters->toArray() as $character) {
             /** @noinspection PhpUndefinedFieldInspection */
@@ -60,11 +60,10 @@ class CharacterCell extends Cell
      * Will check if CharacterBehavior exists in model. If not, add it.
      * Then find characters from the behavior finder
      *
-     * @param \Cake\ORM\Table|\Cake\ORM\Query $object Model class to get character records from
-     * @return \Cake\Datasource\QueryInterface
-     * @throws \Exception
+     * @param \Cake\ORM\Table|\Cake\ORM\Query\SelectQuery $object Model class to get character records from
+     * @return \Cake\ORM\Query\SelectQuery
      */
-    protected function getCharacters($object): QueryInterface
+    protected function getCharacters(Table|SelectQuery $object): SelectQuery
     {
         $this->determineRepository($object);
         if (!$this->repository->hasBehavior('Character')) {
