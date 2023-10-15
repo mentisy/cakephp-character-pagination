@@ -1,6 +1,6 @@
 <?php
 /**
  * @var \Cake\View\View $this
- * @var string[] $links
+ * @var array<string> $links
  */
 echo implode(' | ', $links);
